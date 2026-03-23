@@ -1,92 +1,133 @@
 ---
+import { AvButton, AvCard, AvContainer } from "@ansiversa/components";
 import AppShell from "../layouts/AppShell.astro";
-import { AvContainer, AvButton } from "@ansiversa/components";
+import { APP_META } from "../app.meta";
+import { buildRootRedirect } from "../lib/redirects";
 
-const title = "Proposal Writer – Ansiversa";
-const description = "Generate structured proposals fast.";
+const rootAppUrl = Astro.locals.rootAppUrl ?? "https://ansiversa.com";
+const appUrl = new URL("/app", Astro.url).toString();
+const startHref = Astro.locals.isAuthenticated
+  ? "/app"
+  : buildRootRedirect(rootAppUrl, "/login", appUrl);
+const signInHref = buildRootRedirect(rootAppUrl, "/login", appUrl);
+
+const title = `${APP_META.name} | Ansiversa`;
+const description = APP_META.description;
+
+const valueCards = [
+  {
+    "title": "Professional by default",
+    "description": "The baseline emphasizes clean structure, direct language, and a premium shell that feels trustworthy from the first load."
+  },
+  {
+    "title": "Faster execution",
+    "description": "Future workflows can stay tightly focused on the task at hand instead of making users fight layout, navigation, or setup noise."
+  },
+  {
+    "title": "Aligned for production",
+    "description": "Parent-auth flow, shared design tokens, and protected route standards are already in place for the real product build."
+  }
+];
+const reasonsToUse = [
+  {
+    "title": "One clear job",
+    "description": "Proposal Writer stays anchored to a single purpose so the future product can remain focused instead of sprawling."
+  },
+  {
+    "title": "Shared Ansiversa standards",
+    "description": "The landing page, protected workspace, navbar, footer, and parent-auth routing already follow the current ecosystem baseline."
+  },
+  {
+    "title": "Ready for the next implementation phase",
+    "description": "Proposal Writer is already aligned to the current Ansiversa app contract, so the next build phase can stay focused on real product work."
+  }
+];
 ---
 
 <AppShell title={title} description={description}>
-  <!-- Hero -->
-  <section class="av-hero">
-    <AvContainer size="narrow" className="av-hero__content--narrow">
-      <div class="av-hero__content">
-        <div class="av-kicker">
-          <span>Career & Work · Ansiversa Mini App</span>
+  <section class="av-section">
+    <AvContainer>
+      <div class="av-auth-stack-lg">
+        <AvCard className="av-auth-card">
+          <div class="av-auth-stack-md">
+            <div class="av-auth-stack-xs">
+              <p class="av-kicker">Career Mini-App</p>
+              <h1 class="av-section-title">Proposal Writer is being prepared to make professional work faster, clearer, and more polished</h1>
+              <p class="av-text-soft">
+                Generate structured proposals fast. Built for professional, clean, and trust-building, Proposal Writer is taking shape as a focused Ansiversa experience with a calm interface, clear direction, and room for the real workflow to grow well.
+              </p>
+            </div>
+
+            <div class="av-row-wrap">
+              <AvButton href={startHref}>Open Proposal Writer</AvButton>
+              <AvButton href={signInHref} variant="ghost">Sign in</AvButton>
+            </div>
+
+            <p class="av-text-soft">
+              Coming soon in Career. The shared shell, route structure, and parent-auth flow are already in place.
+            </p>
+          </div>
+        </AvCard>
+
+        <div class="grid gap-4 md:grid-cols-3">
+          {valueCards.map((card) => (
+            <AvCard variant="soft" className="av-auth-stack-sm">
+              <h2 class="av-card-heading">{card.title}</h2>
+              <p class="av-text-soft">{card.description}</p>
+            </AvCard>
+          ))}
         </div>
-        <h1 class="av-gradient-text">Proposal Writer</h1>
-        <p>
-          Generate structured proposals fast.
-        </p>
-      </div>
-      <div class="av-cta-row">
-        <AvButton href="https://proposal-writer.ansiversa.com">Launch Proposal</AvButton>
-      </div>
-    </AvContainer>
-  </section>
 
-  <!-- Problem -->
-  <section class="av-section">
-    <AvContainer size="narrow">
-      <div class="av-section-header">
-        <h2 class="av-section-title">The problem it solves</h2>
-        <p class="av-section-lead">
-          Career tasks like resumes, meetings, and communication often feel scattered.
-        </p>
-      </div>
-      <div class="av-section-body space-y-3 text-slate-300">
-        <p>Proposal Writer takes one piece of your career workflow and makes it effortless.</p>
-      </div>
-    </AvContainer>
-  </section>
+        <div class="grid gap-4 md:grid-cols-[1.1fr_0.9fr]">
+          <AvCard variant="soft" className="av-auth-stack-sm">
+            <p class="av-kicker">What this app will do</p>
+            <h2 class="av-card-heading">Proposal Writer</h2>
+            <p class="av-text-soft">
+              Proposal Writer is a focused career tool inside Ansiversa. Its first release is being shaped around one practical outcome: Generate structured proposals fast.
+            </p>
+            <p class="av-text-soft">
+              The repo already follows Ansiversa layout, auth, metadata, and route standards, so the next build phase can stay tightly scoped to the actual product workflow.
+            </p>
+          </AvCard>
 
-  <!-- Why this mini app -->
-  <section class="av-section">
-    <AvContainer size="narrow">
-      <div class="av-section-header">
-        <h2 class="av-section-title">Why Proposal Writer feels different</h2>
-        <p class="av-section-lead">
-          A focused mini app inside the larger Ansiversa ecosystem.
-        </p>
-      </div>
-      <div class="av-section-body">
-        <ul class="space-y-2 text-slate-300 list-disc list-inside">
-          <li>Focused on a single, real-world career task.</li>
-          <li>Gives you professional-quality output without complex tools.</li>
-          <li>Keeps everything structured, consistent, and reusable.</li>
-        </ul>
-      </div>
-    </AvContainer>
-  </section>
+          <AvCard className="av-auth-card">
+            <div class="av-auth-stack-sm">
+              <p class="av-kicker">Category fit</p>
+              <h2 class="av-card-heading">Career</h2>
+              <p class="av-text-soft">
+                Proposal Writer is being positioned with a professional, clean, and trust-building tone so it feels consistent with the
+                rest of the Ansiversa ecosystem from the first load.
+              </p>
+            </div>
+          </AvCard>
+        </div>
 
-  <!-- How it works -->
-  <section class="av-section">
-    <AvContainer size="narrow">
-      <div class="av-section-header">
-        <h2 class="av-section-title">How it works</h2>
-        <p class="av-section-lead">
-          Simple, clear steps so people can start in under a minute.
-        </p>
-      </div>
-      <ol class="av-section-body space-y-2 text-slate-300 list-decimal list-inside">
-        <li>Open Proposal Writer before you start your task.</li>
-        <li>Provide a few key details about your role, client, or context.</li>
-        <li>Generate polished output you can refine and use immediately.</li>
-      </ol>
-    </AvContainer>
-  </section>
+        <div class="grid gap-4 md:grid-cols-3">
+          {reasonsToUse.map((reason) => (
+            <AvCard variant="soft" className="av-auth-stack-sm">
+              <p class="av-kicker">Why use it</p>
+              <h2 class="av-card-heading">{reason.title}</h2>
+              <p class="av-text-soft">{reason.description}</p>
+            </AvCard>
+          ))}
+        </div>
 
-  <!-- Final CTA -->
-  <section class="av-section">
-    <AvContainer size="narrow">
-      <div class="av-section-header">
-        <h2 class="av-section-title">Ready to try Proposal Writer?</h2>
-        <p class="av-section-lead">
-          Open the app, follow the simple flow, and let it handle the heavy lifting.
-        </p>
-      </div>
-      <div class="av-cta-row">
-        <AvButton href="https://proposal-writer.ansiversa.com">Start with Proposal</AvButton>
+        <AvCard className="av-auth-card">
+          <div class="av-auth-stack-md">
+            <div class="av-auth-stack-xs">
+              <p class="av-kicker">Build in progress</p>
+              <h2 class="av-section-title">The premium baseline is locked. The domain workflow is next.</h2>
+              <p class="av-text-soft">
+                Proposal Writer already uses the shared Ansiversa shell and route conventions, so future implementation can move directly into the real product flow without another structural reset.
+              </p>
+            </div>
+
+            <div class="av-row-wrap">
+              <AvButton href={startHref}>Enter protected workspace</AvButton>
+              <AvButton href={signInHref} variant="ghost">Return through Ansiversa</AvButton>
+            </div>
+          </div>
+        </AvCard>
       </div>
     </AvContainer>
   </section>
