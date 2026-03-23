@@ -1,46 +1,254 @@
 ---
-import { AvButton, AvCard, AvContainer } from "@ansiversa/components";
+import { AvButton, AvCard, AvCheckbox, AvContainer, AvInput, AvTextarea } from "@ansiversa/components";
 import AppShell from "../../layouts/AppShell.astro";
 import { APP_META } from "../../app.meta";
 
-const title = `${APP_META.name} App`;
-const description = `Protected workspace for ${APP_META.name}.`;
-
-const checkpoints = [
-  "The public landing page is aligned to the current Ansiversa product standard.",
-  "Authenticated entry stays on /app so future workflows follow the shared ecosystem pattern.",
-  "Shared metadata, middleware, layout, and component dependencies are already synced for the next build phase.",
-];
+const title = `${APP_META.name} | Create structured proposals fast`;
+const description = "Create structured proposals fast with a clean editor and live business-ready preview.";
 ---
 
 <AppShell title={title} description={description}>
   <section class="av-section">
     <AvContainer>
-      <div class="av-auth-stack-lg">
-        <AvCard className="av-auth-card">
-          <div class="av-auth-stack-md">
-            <div class="av-auth-stack-xs">
-              <p class="av-kicker">Protected Workspace</p>
-              <h1 class="av-section-title">{APP_META.name}</h1>
-              <p class="av-text-soft">
-                Proposal Writer is ready for the next development phase. This protected route is reserved for the core app workflow that signed-in users will use as the product takes shape.
-              </p>
-            </div>
+      <div class="proposal-app-shell av-auth-stack-lg" x-data x-init="$store.proposalApp.init()">
+        <div class="proposal-app-hero av-auth-stack-sm">
+          <p class="av-kicker">Career Mini-App</p>
+          <h1 class="av-section-title">Create structured proposals fast.</h1>
+          <p class="av-text-soft proposal-app-hero-copy">
+            Build a clean, client-ready proposal with a calm editor, useful section controls, local draft retention, and a live preview that reads like a real business document.
+          </p>
+        </div>
 
-            <div class="av-row-wrap">
-              <AvButton href="/">Back to landing</AvButton>
-              <AvButton href="/signout" variant="ghost">Sign out</AvButton>
-            </div>
-          </div>
-        </AvCard>
+        <div class="proposal-app-grid">
+          <div class="proposal-app-editor-stack av-auth-stack-md">
+            <AvCard className="av-auth-card proposal-app-card">
+              <div class="av-auth-stack-md">
+                <div class="av-auth-stack-xs">
+                  <p class="av-kicker">Editor</p>
+                  <h2 class="av-card-heading">Proposal details</h2>
+                  <p class="av-text-soft">
+                    Fill the draft once and review the structure in real time. Your current draft is saved locally in this browser for V1.
+                  </p>
+                </div>
 
-        <div class="grid gap-4 md:grid-cols-3">
-          {checkpoints.map((item) => (
-            <AvCard variant="soft" className="av-auth-stack-sm">
-              <h2 class="av-card-heading">Baseline ready</h2>
-              <p class="av-text-soft">{item}</p>
+                <div class="proposal-app-form-grid">
+                  <AvInput
+                    id="proposal-title"
+                    label="Proposal title"
+                    name="proposal-title"
+                    placeholder="Website redesign proposal"
+                    x-model="$store.proposalApp.draft.title"
+                    x-on:input="$store.proposalApp.updateField('title', $event.target.value)"
+                  />
+                  <AvInput
+                    id="proposal-client"
+                    label="Client / company name"
+                    name="proposal-client"
+                    placeholder="Acme Industries"
+                    x-model="$store.proposalApp.draft.clientName"
+                    x-on:input="$store.proposalApp.updateField('clientName', $event.target.value)"
+                  />
+                  <AvInput
+                    id="proposal-prepared-by"
+                    label="Prepared by"
+                    name="proposal-prepared-by"
+                    placeholder="Ansiversa Studio"
+                    x-model="$store.proposalApp.draft.preparedBy"
+                    x-on:input="$store.proposalApp.updateField('preparedBy', $event.target.value)"
+                  />
+                </div>
+
+                <div class="av-auth-stack-sm">
+                  <AvTextarea
+                    label="Project summary"
+                    name="proposal-summary"
+                    rows={4}
+                    placeholder="Summarize the project goals and the intended business outcome."
+                    x-model="$store.proposalApp.draft.summary"
+                    x-on:input="$store.proposalApp.updateField('summary', $event.target.value)"
+                  />
+
+                  <AvTextarea
+                    label="Scope of work"
+                    name="proposal-scope"
+                    rows={5}
+                    placeholder="Describe the work included in this proposal."
+                    x-model="$store.proposalApp.draft.scopeOfWork"
+                    x-on:input="$store.proposalApp.updateField('scopeOfWork', $event.target.value)"
+                  />
+
+                  <AvTextarea
+                    label="Deliverables"
+                    name="proposal-deliverables"
+                    rows={4}
+                    placeholder="List the deliverables the client will receive."
+                    x-model="$store.proposalApp.draft.deliverables"
+                    x-on:input="$store.proposalApp.updateField('deliverables', $event.target.value)"
+                  />
+
+                  <AvTextarea
+                    label="Timeline"
+                    name="proposal-timeline"
+                    rows={4}
+                    placeholder="Outline the schedule, milestones, or expected duration."
+                    x-model="$store.proposalApp.draft.timeline"
+                    x-on:input="$store.proposalApp.updateField('timeline', $event.target.value)"
+                  />
+
+                  <AvTextarea
+                    label="Pricing / budget"
+                    name="proposal-pricing"
+                    rows={4}
+                    placeholder="Describe budget, fee structure, or payment terms."
+                    x-model="$store.proposalApp.draft.pricing"
+                    x-on:input="$store.proposalApp.updateField('pricing', $event.target.value)"
+                  />
+
+                  <AvTextarea
+                    label="Terms / notes"
+                    name="proposal-terms"
+                    rows={4}
+                    placeholder="Add assumptions, terms, notes, or approval conditions."
+                    x-model="$store.proposalApp.draft.terms"
+                    x-on:input="$store.proposalApp.updateField('terms', $event.target.value)"
+                  />
+                </div>
+              </div>
             </AvCard>
-          ))}
+
+            <AvCard variant="soft" className="proposal-app-card">
+              <div class="av-auth-stack-sm">
+                <div class="av-auth-stack-xs">
+                  <p class="av-kicker">Optional sections</p>
+                  <h2 class="av-card-heading">Show only what this proposal needs</h2>
+                </div>
+
+                <div class="proposal-app-toggle-grid">
+                  <AvCheckbox
+                    label="Deliverables"
+                    name="show-deliverables"
+                    x-model="$store.proposalApp.draft.showDeliverables"
+                    x-on:change="$store.proposalApp.updateToggle('showDeliverables', $event.target.checked)"
+                  />
+                  <AvCheckbox
+                    label="Timeline"
+                    name="show-timeline"
+                    x-model="$store.proposalApp.draft.showTimeline"
+                    x-on:change="$store.proposalApp.updateToggle('showTimeline', $event.target.checked)"
+                  />
+                  <AvCheckbox
+                    label="Pricing / budget"
+                    name="show-pricing"
+                    x-model="$store.proposalApp.draft.showPricing"
+                    x-on:change="$store.proposalApp.updateToggle('showPricing', $event.target.checked)"
+                  />
+                  <AvCheckbox
+                    label="Terms / notes"
+                    name="show-terms"
+                    x-model="$store.proposalApp.draft.showTerms"
+                    x-on:change="$store.proposalApp.updateToggle('showTerms', $event.target.checked)"
+                  />
+                </div>
+              </div>
+            </AvCard>
+
+            <AvCard className="av-auth-card proposal-app-card">
+              <div class="av-auth-stack-sm">
+                <div class="av-auth-stack-xs">
+                  <p class="av-kicker">Actions</p>
+                  <h2 class="av-card-heading">Copy or reset with intention</h2>
+                </div>
+
+                <div class="av-row-wrap">
+                  <AvButton type="button" x-on:click="$store.proposalApp.copyFullProposal()">Copy full proposal</AvButton>
+                  <AvButton type="button" variant="ghost" x-on:click="$store.proposalApp.requestReset()">Reset draft</AvButton>
+                </div>
+
+                <p class="proposal-app-inline-note" x-show="$store.proposalApp.copyMessage" x-text="$store.proposalApp.copyMessage"></p>
+                <p class="proposal-app-error" x-show="$store.proposalApp.copyError" x-text="$store.proposalApp.copyError"></p>
+
+                <div class="proposal-app-reset-card" x-show="$store.proposalApp.showResetConfirmation" x-cloak>
+                  <p class="av-text-soft">
+                    Clear the current draft and local browser copy? This removes the current V1 draft from local storage.
+                  </p>
+                  <div class="av-row-wrap">
+                    <AvButton type="button" x-on:click="$store.proposalApp.confirmReset()">Confirm reset</AvButton>
+                    <AvButton type="button" variant="ghost" x-on:click="$store.proposalApp.cancelReset()">Cancel</AvButton>
+                  </div>
+                </div>
+              </div>
+            </AvCard>
+          </div>
+
+          <AvCard className="av-auth-card proposal-app-card proposal-preview-card">
+            <div class="av-auth-stack-md">
+              <div class="proposal-preview-header">
+                <div class="av-auth-stack-xs">
+                  <p class="av-kicker">Live preview</p>
+                  <h2 class="av-card-heading">Proposal document</h2>
+                </div>
+                <AvButton type="button" variant="ghost" x-on:click="$store.proposalApp.copyFullProposal()">Copy full proposal</AvButton>
+              </div>
+
+              <div class="proposal-document">
+                <div class="proposal-document-heading av-auth-stack-xs">
+                  <h1 class="proposal-document-title" x-text="$store.proposalApp.draft.title || 'Untitled Proposal'"></h1>
+                  <div class="proposal-document-meta">
+                    <p><span>Prepared for</span><strong x-text="$store.proposalApp.draft.clientName || 'Client name to be added'"></strong></p>
+                    <p><span>Prepared by</span><strong x-text="$store.proposalApp.draft.preparedBy || 'Prepared by to be added'"></strong></p>
+                  </div>
+                </div>
+
+                <section class="proposal-document-section">
+                  <div class="proposal-document-section-header">
+                    <h2>Executive Summary</h2>
+                    <button type="button" class="proposal-copy-button" x-on:click="$store.proposalApp.copySection('summary')">Copy</button>
+                  </div>
+                  <p class="proposal-document-copy" x-text="$store.proposalApp.getPreviewValue('summary')"></p>
+                </section>
+
+                <section class="proposal-document-section">
+                  <div class="proposal-document-section-header">
+                    <h2>Scope of Work</h2>
+                    <button type="button" class="proposal-copy-button" x-on:click="$store.proposalApp.copySection('scopeOfWork')">Copy</button>
+                  </div>
+                  <p class="proposal-document-copy" x-text="$store.proposalApp.getPreviewValue('scopeOfWork')"></p>
+                </section>
+
+                <section class="proposal-document-section" x-show="$store.proposalApp.draft.showDeliverables">
+                  <div class="proposal-document-section-header">
+                    <h2>Deliverables</h2>
+                    <button type="button" class="proposal-copy-button" x-on:click="$store.proposalApp.copySection('deliverables')">Copy</button>
+                  </div>
+                  <p class="proposal-document-copy" x-text="$store.proposalApp.getPreviewValue('deliverables')"></p>
+                </section>
+
+                <section class="proposal-document-section" x-show="$store.proposalApp.draft.showTimeline">
+                  <div class="proposal-document-section-header">
+                    <h2>Timeline</h2>
+                    <button type="button" class="proposal-copy-button" x-on:click="$store.proposalApp.copySection('timeline')">Copy</button>
+                  </div>
+                  <p class="proposal-document-copy" x-text="$store.proposalApp.getPreviewValue('timeline')"></p>
+                </section>
+
+                <section class="proposal-document-section" x-show="$store.proposalApp.draft.showPricing">
+                  <div class="proposal-document-section-header">
+                    <h2>Pricing</h2>
+                    <button type="button" class="proposal-copy-button" x-on:click="$store.proposalApp.copySection('pricing')">Copy</button>
+                  </div>
+                  <p class="proposal-document-copy" x-text="$store.proposalApp.getPreviewValue('pricing')"></p>
+                </section>
+
+                <section class="proposal-document-section" x-show="$store.proposalApp.draft.showTerms">
+                  <div class="proposal-document-section-header">
+                    <h2>Terms / Notes</h2>
+                    <button type="button" class="proposal-copy-button" x-on:click="$store.proposalApp.copySection('terms')">Copy</button>
+                  </div>
+                  <p class="proposal-document-copy" x-text="$store.proposalApp.getPreviewValue('terms')"></p>
+                </section>
+              </div>
+            </div>
+          </AvCard>
         </div>
       </div>
     </AvContainer>

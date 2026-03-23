@@ -6,9 +6,7 @@ import { buildRootRedirect } from "../lib/redirects";
 
 const rootAppUrl = Astro.locals.rootAppUrl ?? "https://ansiversa.com";
 const appUrl = new URL("/app", Astro.url).toString();
-const startHref = Astro.locals.isAuthenticated
-  ? "/app"
-  : buildRootRedirect(rootAppUrl, "/login", appUrl);
+const startHref = "/app";
 const signInHref = buildRootRedirect(rootAppUrl, "/login", appUrl);
 
 const title = `${APP_META.name} | Ansiversa`;
@@ -17,15 +15,15 @@ const description = APP_META.description;
 const valueCards = [
   {
     "title": "Professional by default",
-    "description": "The baseline emphasizes clean structure, direct language, and a premium shell that feels trustworthy from the first load."
+    "description": "The workflow is built to feel calm, business-ready, and clear from the first screen."
   },
   {
     "title": "Faster execution",
-    "description": "Future workflows can stay tightly focused on the task at hand instead of making users fight layout, navigation, or setup noise."
+    "description": "Draft, preview, and copy the proposal in one place so momentum stays on the work instead of the setup."
   },
   {
     "title": "Aligned for production",
-    "description": "Parent-auth flow, shared design tokens, and protected route standards are already in place for the real product build."
+    "description": "Proposal Writer follows current Ansiversa layout, app identity, and route standards so it can grow without structural drift."
   }
 ];
 const reasonsToUse = [
@@ -35,11 +33,11 @@ const reasonsToUse = [
   },
   {
     "title": "Shared Ansiversa standards",
-    "description": "The landing page, protected workspace, navbar, footer, and parent-auth routing already follow the current ecosystem baseline."
+    "description": "The landing page, editor shell, preview workflow, navbar, and footer all follow the current ecosystem baseline."
   },
   {
     "title": "Ready for the next implementation phase",
-    "description": "Proposal Writer is already aligned to the current Ansiversa app contract, so the next build phase can stay focused on real product work."
+    "description": "Proposal Writer now ships with a focused V1 proposal workflow and a stable base for later enhancements."
   }
 ];
 ---
@@ -52,9 +50,9 @@ const reasonsToUse = [
           <div class="av-auth-stack-md">
             <div class="av-auth-stack-xs">
               <p class="av-kicker">Career Mini-App</p>
-              <h1 class="av-section-title">Proposal Writer is being prepared to make professional work faster, clearer, and more polished</h1>
+              <h1 class="av-section-title">Generate structured proposals fast.</h1>
               <p class="av-text-soft">
-                Generate structured proposals fast. Built for professional, clean, and trust-building, Proposal Writer is taking shape as a focused Ansiversa experience with a calm interface, clear direction, and room for the real workflow to grow well.
+                Proposal Writer gives you a calm, professional workspace for drafting business-ready proposals with live preview, section control, copy-ready output, and local draft retention.
               </p>
             </div>
 
@@ -64,7 +62,7 @@ const reasonsToUse = [
             </div>
 
             <p class="av-text-soft">
-              Coming soon in Career. The shared shell, route structure, and parent-auth flow are already in place.
+              Live now as a focused V1 business-writing app, with the core editor and preview workflow available directly in the app.
             </p>
           </div>
         </AvCard>
@@ -86,7 +84,7 @@ const reasonsToUse = [
               Proposal Writer is a focused career tool inside Ansiversa. Its first release is being shaped around one practical outcome: Generate structured proposals fast.
             </p>
             <p class="av-text-soft">
-              The repo already follows Ansiversa layout, auth, metadata, and route standards, so the next build phase can stay tightly scoped to the actual product workflow.
+              The repo already follows Ansiversa layout, metadata, and route standards, so future work can stay tightly scoped to the actual product workflow.
             </p>
           </AvCard>
 
@@ -115,15 +113,15 @@ const reasonsToUse = [
         <AvCard className="av-auth-card">
           <div class="av-auth-stack-md">
             <div class="av-auth-stack-xs">
-              <p class="av-kicker">Build in progress</p>
-              <h2 class="av-section-title">The premium baseline is locked. The domain workflow is next.</h2>
+              <p class="av-kicker">Available now</p>
+              <h2 class="av-section-title">The V1 proposal workflow is live and ready to use.</h2>
               <p class="av-text-soft">
-                Proposal Writer already uses the shared Ansiversa shell and route conventions, so future implementation can move directly into the real product flow without another structural reset.
+                Open the app to draft a proposal, review the live document preview, copy the final text, and continue later with local draft retention.
               </p>
             </div>
 
             <div class="av-row-wrap">
-              <AvButton href={startHref}>Enter protected workspace</AvButton>
+              <AvButton href={startHref}>Open Proposal Writer</AvButton>
               <AvButton href={signInHref} variant="ghost">Return through Ansiversa</AvButton>
             </div>
           </div>
