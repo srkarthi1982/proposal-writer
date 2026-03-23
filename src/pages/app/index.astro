@@ -167,15 +167,17 @@ const description = "Create structured proposals fast with a clean editor and li
                 <p class="proposal-app-inline-note" x-show="$store.proposalApp.copyMessage" x-text="$store.proposalApp.copyMessage"></p>
                 <p class="proposal-app-error" x-show="$store.proposalApp.copyError" x-text="$store.proposalApp.copyError"></p>
 
-                <div class="proposal-app-reset-card" x-show="$store.proposalApp.showResetConfirmation" x-cloak>
-                  <p class="av-text-soft">
-                    Clear the current draft and local browser copy? This removes the current V1 draft from local storage.
-                  </p>
-                  <div class="av-row-wrap">
-                    <AvButton type="button" x-on:click="$store.proposalApp.confirmReset()">Confirm reset</AvButton>
-                    <AvButton type="button" variant="ghost" x-on:click="$store.proposalApp.cancelReset()">Cancel</AvButton>
+                <template x-if="$store.proposalApp.showResetConfirmation">
+                  <div class="proposal-app-reset-card">
+                    <p class="av-text-soft">
+                      Clear the current draft and local browser copy? This removes the current V1 draft from local storage.
+                    </p>
+                    <div class="av-row-wrap">
+                      <AvButton type="button" x-on:click="$store.proposalApp.confirmReset()">Confirm reset</AvButton>
+                      <AvButton type="button" variant="ghost" x-on:click="$store.proposalApp.cancelReset()">Cancel</AvButton>
+                    </div>
                   </div>
-                </div>
+                </template>
               </div>
             </AvCard>
           </div>
